@@ -35,6 +35,7 @@ body {
   float: right;
   transform: perspective(1000px) rotateY(0deg);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 1);
+  /* transform: rotate(90deg); */
 }
 .page {
   width: 100%;
@@ -55,7 +56,6 @@ position:absolute;
 left:0;
 top:0;
 color:black;
-font-size:50px;
 text-align:center;
 line-height:260px;
 backface-visibility: hidden;
@@ -70,6 +70,9 @@ background-color: #ccc
 box-shadow: inset -50px 0 35px rgba(0,0,0,.3);
 background-color: #ccc;
 transform:rotateY(180deg);
+}
+.back.main {
+  background-color: #ccc;
 }
 
 .inside{
@@ -89,5 +92,11 @@ box-shadow: inset 50px 0 35px rgba(0,0,0,.3);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.front:not(.main) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 

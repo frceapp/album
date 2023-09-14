@@ -79,5 +79,30 @@ $(document).ready(function () {
         window.page_index ++
     }
 });
+
+
+$(document).ready(function () {
+    $('.front').click(function () {
+        var id = $(this).data('id')
+        $(`.file-input-front[data-page="${id}"]`).click()
+    })
+
+    $(document).ready(function() {
+        $('.file-input-front').on('change', function() {
+            console.log('a')
+            const file = this.files[0];
+            const imagePreview = $(`.preview-front-${$(this).data('id')}`);
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.attr('src', e.target.result);
+                    imagePreview.show();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+});
   
   

@@ -14,10 +14,10 @@ $max_page = 10;
         body {
             background-image: url('<?= $base_url ?>/assets/background.jpg');
         }
-        .main {
+        .front.main {
             background-image: url('<?= $base_url ?>/assets/book_cover.png');
         }
-        .front:not(.main), .back {
+        .front:not(.main), .back:not(.main) {
             background-image: url('<?= $base_url ?>/assets/page.png');
         }
     </style>
@@ -32,12 +32,26 @@ $max_page = 10;
         <div id="cardflip">
             <div class="inside">Continue</div>
             <?php for ($i=1; $i <= $max_page ; $i++) : ?>
-                <div class="page <?= $i ?>">
-                    <div class="front <?= $max_page == $i ? 'main' : '' ?>">
-                        <h1><?= $i ?></h1>
+                <?php if ($max_page == $i) : ?>
+                    <div class="page <?= $i ?>">
+                        <div class="front main">
+                        </div>
+                        <div class="back main"></div>
                     </div>
-                    <div class="back"></div>
-                </div>
+                <?php else : ?>
+                    <div class="page <?= $i ?>">
+                        <div class="front" data-id="<?= $i ?>">
+                            <img class="preview-front-<?= $i ?>" width="250" src="<?= $base_url ?>/assets/note.png" alt="Image Preview">
+                        </div>
+                        <div class="back back-upload">
+                            <div class="drop-area" id="backDropArea<?= $i ?>">
+                                <input type="file" class="file-input" accept="image/*" multiple data-page="<?= $i ?>">
+                            </div>
+                            <div class="preview" id="backPreview<?= $i ?>"></div>
+                        </div>
+                    </div>
+                    <input type="file" class="file-input file-input-front" data-id="<?= $i ?>" style="display: none;" accept="image/*" data-page="<?= $i ?>">
+                <?php endif ?>
             <?php endfor ?>
         </div>
     </div>

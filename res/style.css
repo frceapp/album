@@ -1,5 +1,4 @@
 body {
-  background-image: url('https://cdn.pnghd.pics/data/914/wood-background-portrait-10.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -28,10 +27,10 @@ body {
 }
 
 #cardflip {
-  width: 79%;
-  height: 50vh;
+  width: 350px;
+  height: 500px;
   position: relative;
-  perspective: 800px;
+  perspective: 1500px;
   cursor:pointer;
   float: right;
   transform: perspective(1000px) rotateY(0deg);
@@ -47,7 +46,7 @@ transform-origin: left center;
 }
 .page.flip{
   transition: transform .6s;
-transform:rotateY(-120deg);
+transform:rotateY(-180deg);
 }
 .page div,.inside{
 width: 100%;
@@ -55,7 +54,7 @@ height:100%;
 position:absolute;
 left:0;
 top:0;
-color:#fff;
+color:black;
 font-size:50px;
 text-align:center;
 line-height:260px;
@@ -81,8 +80,14 @@ box-shadow: inset 50px 0 35px rgba(0,0,0,.3);
 }
 
 .main {
-  background-image: url('https://static.wikia.nocookie.net/disney/images/f/f7/Profile-Russell.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.front:not(.main), .back {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+

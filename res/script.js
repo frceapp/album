@@ -1,6 +1,6 @@
-window.current_page = 3
-
 $(document).ready(function () {
+    window.allow_swap = true
+
     document.body.addEventListener('touchstart', (e) => {
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
@@ -14,7 +14,12 @@ $(document).ready(function () {
         const deltaY = endY - startY;
         
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            // Horizontal swipe detected
+            if (!window.allow_swap) {
+                return
+            }
+
+            window.allow_swap = false
+
             if (deltaX > 0) {
             // Swipe right
             swipeRight();
@@ -24,22 +29,54 @@ $(document).ready(function () {
             }
         }
     });
+
+    document.addEventListener('keydown', (event) => { 
+        if (!window.allow_swap) {
+            return
+        }
+
+        window.allow_swap = false
+
+        if (event.keyCode == 37) {
+            swipeRight();
+        } else if (event.keyCode == 39) {
+            swipeLeft()
+        }
+    });
+
+    window.page_index = 100
     
     function swipeRight() {
-        // if (0 >= window.curren_page) {
-        //     return
-        // }
-        $(`.${window.current_page}`).removeClass('flip')
         window.current_page ++
+        if (window.total_page < window.current_page) {
+            window.current_page --
+            window.allow_swap = true
+            return
+        }
+        $(`.${window.current_page}`).removeClass('flip')
+        setTimeout(function () {
+            $(`.${window.current_page}`).css('z-index', window.page_index)
+            $(`.${window.current_page - 1}`).css('z-index', window.page_index - 1)
+            window.allow_swap = true
+        }, 50)
+
+        window.page_index ++
     }
       
     function swipeLeft() {
-        // if (window.max_ <= window.curren_page) {
-        //     return
-        // }
+        if (0 >= window.current_page) {
+            window.allow_swap = true
+            return
+        }
         $(`.${window.current_page}`).addClass('flip')
-        // $(`.${window.curren_page}`).css('display', 'none')
         window.current_page --
+        setTimeout(function () {
+            $(`.${window.current_page}`).css('z-index', window.page_index)
+            $(`.${window.current_page + 1}`).css('z-index', window.page_index - 1)
+            window.allow_swap = true
+        }, 500)
+
+        window.page_index ++
     }
 });
   

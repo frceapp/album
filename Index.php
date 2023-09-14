@@ -1,23 +1,28 @@
+<?php
+include('base_url.php');
+
+$max_page = 10;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album</title>
     <link rel="stylesheet" href="res/style.css">
-    <title>Open Book on Scroll</title>
+    <style>
+        body {
+            background-image: url('<?= $base_url ?>/assets/background.jpg');
+        }
+        .main {
+            background-image: url('<?= $base_url ?>/assets/book_cover.png');
+        }
+        .front:not(.main), .back {
+            background-image: url('<?= $base_url ?>/assets/page.png');
+        }
+    </style>
 </head>
 <body>
-    <?php 
-    function randomHexColor() {
-        $red = mt_rand(0, 255);
-        $green = mt_rand(0, 255);
-        $blue = mt_rand(0, 255);
-    
-        $hex = sprintf("#%02x%02x%02x", $red, $green, $blue);
-    
-        return $hex;
-    }
-    ?>
     <div id="content">
         <!-- <div id="ruler">
             <div id="text-ruler">
@@ -25,35 +30,25 @@
             </div>
         </div> -->
         <div id="cardflip">
-            <div class="inside">Nyumy</div>
-            <div class="page 1">
-                <div class="front">
-                    Ulekan
+            <div class="inside">Continue</div>
+            <?php for ($i=1; $i <= $max_page ; $i++) : ?>
+                <div class="page <?= $i ?>">
+                    <div class="front <?= $max_page == $i ? 'main' : '' ?>">
+                        <h1><?= $i ?></h1>
+                    </div>
+                    <div class="back"></div>
                 </div>
-                <div class="back">
-
-                </div>
-            </div>
-            <div class="page 2">
-                <div class="front">
-                    Cabai
-                </div>
-                <div class="back">
-
-                </div>
-            </div>
-            <div class="page 3">
-                <div class="front main">
-                    <div style="font-size: 25px;">Resep sambal Geprek</div>
-                </div>
-                <div class="back">
-
-                </div>
-            </div>
+            <?php endfor ?>
         </div>
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const base_url = '<?= $base_url ?>'
+
+        window.current_page = <?= $max_page ?>
+
+        window.total_page = <?= $max_page ?>
+    </script>
     <script src="res/script.js"></script>
 </body>
 </html>

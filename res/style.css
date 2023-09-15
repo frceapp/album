@@ -65,6 +65,11 @@ background-color: #ccc
 }
 .front:not(.main) {
   box-shadow: inset 50px 0 35px rgba(0,0,0,.3);
+  -webkit-box-shadow: inset 50px 0 35px rgba(0,0,0,.3);
+  -moz-box-shadow: inset 50px 0 35px rgba(0,0,0,.3);
+}
+.img-shadow {
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 }
 .back {
 box-shadow: inset -50px 0 35px rgba(0,0,0,.3);
@@ -78,8 +83,10 @@ transform:rotateY(180deg);
 .inside{
 backface-visibility: visible;
 color:#000;
+font-size: 50px;
 background:#ccc;
 box-shadow: inset 50px 0 35px rgba(0,0,0,.3);
+font-family: 'Insiders', sans-serif;
 }
 
 .main {
@@ -98,5 +105,21 @@ box-shadow: inset 50px 0 35px rgba(0,0,0,.3);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.floating-button {
+  position: fixed;
+  right: 20px; /* Adjust as needed */
+  top: 20px; /* Adjust as needed */
+  background-color: #e29a2d;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.floating-button:hover {
+  background-color: #bb7813;
 }
 

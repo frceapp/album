@@ -1,0 +1,4 @@
+res/storage.json
+assets/upload/*
+
+!assets/upload/.gitkeep

@@ -1,7 +1,22 @@
 <?php
+session_start();
+
 include('base_url.php');
 
-$max_page = 10;
+$jsonData = file_exists('res/storage.json') ? json_decode(file_get_contents('res/storage.json'), true) : [];
+
+$max_page = count($jsonData) + 2;
+
+$login = isset($_SESSION['login']) ? $_SESSION['login'] : false;
+
+function isRange($id) {
+    global $jsonData;
+    if ($id >= 1 && $id <= count($jsonData)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +24,7 @@ $max_page = 10;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Album</title>
+    <link href="https://fonts.cdnfonts.com/css/insiders" rel="stylesheet">
     <link rel="stylesheet" href="res/style.css">
     <style>
         body {
@@ -41,7 +57,7 @@ $max_page = 10;
                 <?php else : ?>
                     <div class="page <?= $i ?>">
                         <div class="front" data-id="<?= $i ?>">
-                            <img class="preview-front-<?= $i ?>" width="250" src="<?= $base_url ?>/assets/note.png" alt="Image Preview">
+                            <img class="preview-front-<?= $i ?> img-shadow" width="250" src="<?= $base_url . (isRange($i) ? $jsonData[$i] : 'assets/note.png') ?>" alt="Image Preview">
                         </div>
                         <div class="back back-upload">
                             <div class="drop-area" id="backDropArea<?= $i ?>">
@@ -55,9 +71,19 @@ $max_page = 10;
             <?php endfor ?>
         </div>
     </div>
+
+    <?php if ($login) : ?>
+        <a href="#" class="floating-button logout">Logout</a>
+    <?php else: ?>
+        <a href="#" class="floating-button login">Login</a>
+    <?php endif ?>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         const base_url = '<?= $base_url ?>'
+
+        const login = <?= $login ? 'true' : 'false' ?>
 
         window.current_page = <?= $max_page ?>
 
